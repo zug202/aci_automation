@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE TENANT CONTRACTS EXIST
+- name: Creating contracts
   cisco.aci.aci_contract:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

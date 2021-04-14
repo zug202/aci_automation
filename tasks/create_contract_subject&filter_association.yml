@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE CONTRACTS SUBJECTS ARE ASSOCIATED WITH FILTERS
+- name: Creating contract subject to filter mapping
   cisco.aci.aci_contract_subject_to_filter:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

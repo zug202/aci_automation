@@ -1,75 +1,75 @@
 ---
-- name: ENSURE APPLICATION CONFIGURATION EXISTS
+- name: PLAYBOOK >> ENSURE APPLICATION CONFIGURATION EXISTS
   hosts: apic
   connection: local
   gather_facts: False
       
   tasks:
-    - name: "INCLUDE >> Error checking and log setup"
+    - name: "CHECK >> Error checking and log setup"
       include_tasks: "tasks/pre_check.yml"
       tags: apic
 
-    - name: "INCLUDE >> ENSURE APPLICATIONS TENANT EXISTS"
+    - name: "TASK >> ENSURE APPLICATIONS TENANT EXISTS"
       include_tasks: "tasks/create_tenant.yml"
       ignore_errors: yes
       tags: app, bd, contract, epg, filter, tenant, vrf
 
-    - name: "INCLUDE >> ENSURE TENANT VRF EXISTS"
+    - name: "TASK >> ENSURE TENANT VRF EXISTS"
       include_tasks: "tasks/create_vrf.yml"
       ignore_errors: yes
       tags: bd, vrf
 
-    - name: "INCLUDE >> ENSURE TENANT BRIDGE DOMAINS EXISTS"
+    - name: "TASK >> ENSURE TENANT BRIDGE DOMAINS EXISTS"
       include_tasks: "tasks/create_bd.yml"
       ignore_errors: yes
       tags: bd
 
-    - name: "INCLUDE >> ENSURE BRIDGE DOMAINS HAVE SUBNETS"
+    - name: "TASK >> ENSURE BRIDGE DOMAINS HAVE SUBNETS"
       include_tasks: "tasks/create_bd_subnet.yml"
       ignore_errors: yes
       tags: bd
 
-    - name: "INCLUDE >> ENSURE TENANT FILTERS EXIST"
+    - name: "TASK >> ENSURE TENANT FILTERS EXIST"
       include_tasks: "tasks/create_filter.yml"
       ignore_errors: yes
       tags: contract, filter
 
-    - name: "INCLUDE >> ENSURE FILTERS HAVE ENTRIES"
+    - name: "TASK >> ENSURE FILTERS HAVE ENTRIES"
       include_tasks: "tasks/create_filter_entries.yml"
       ignore_errors: yes
       tags: contract, filter
 
-    - name: "INCLUDE >> ENSURE TENANT CONTRACTS EXIST"
+    - name: "TASK >> ENSURE TENANT CONTRACTS EXIST"
       include_tasks: "tasks/create_contract.yml"
       ignore_errors: yes
       tags: contract
 
-    - name: "INCLUDE >> ENSURE CONTRACTS HAVE CONTRACT SUBJECTS"
+    - name: "TASK >> ENSURE CONTRACTS HAVE CONTRACT SUBJECTS"
       include_tasks: "tasks/create_contract_subject.yml"
       ignore_errors: yes
       tags: contract
 
-    - name: "INCLUDE >> ENSURE CONTRACT SUBJECTS HAVE FILTERS"
+    - name: "TASK >> ENSURE CONTRACT SUBJECTS HAVE FILTERS"
       include_tasks: "tasks/create_contract_subject&filter_association.yml"
       ignore_errors: yes
       tags: contract
 
-    - name: "INCLUDE >> ENSURE APPLICATION EXISTS"
+    - name: "TASK >> ENSURE APPLICATION EXISTS"
       include_tasks: "tasks/create_ap.yml"
       ignore_errors: yes
       tags: app, epg
 
-    - name: "INCLUDE >> ENSURE APPLICATION EPGS EXISTS"
+    - name: "TASK >> ENSURE APPLICATION EPGS EXISTS"
       include_tasks: "tasks/create_ap_epg.yml"
       ignore_errors: yes
       tags: epg
 
-    - name: "INCLUDE >> ENSURE DOMAIN IS BOUND TO EPG"
+    - name: "TASK >> ENSURE DOMAIN IS BOUND TO EPG"
       include_tasks: "tasks/create_epg_domain_association.yml"
       ignore_errors: yes
       tags: epg
 
-    - name: "INCLUDE >> ENSURE EPGS HAVE CONTRACTS"
+    - name: "TASK >> ENSURE EPGS HAVE CONTRACTS"
       include_tasks: "tasks/create_epg_contract_association.yml"
       ignore_errors: yes
       tags: epg

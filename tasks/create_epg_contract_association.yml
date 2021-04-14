@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE EPG IS ASSOCIATED TO CONTRACTS
+- name: Creating epg to contract association
   cisco.aci.aci_epg_to_contract:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

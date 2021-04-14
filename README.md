@@ -25,22 +25,22 @@ ansible-playbook aci_playbook.yml --list-tasks
 
 playbook: aci_playbook.yml
 
-  play #1 (apic): ENSURE APPLICATION CONFIGURATION EXISTS	TAGS: []
+  play #1 (apic): PLAYBOOK >> ENSURE APPLICATION CONFIGURATION EXISTS	TAGS: []
     tasks:
-      INCLUDE >> Error checking and log setup	TAGS: [apic]
-      INCLUDE >> ENSURE APPLICATIONS TENANT EXISTS	TAGS: [app, bd, contract, epg, filter, tenant, vrf]
-      INCLUDE >> ENSURE TENANT VRF EXISTS	TAGS: [bd, vrf]
-      INCLUDE >> ENSURE TENANT BRIDGE DOMAINS EXISTS	TAGS: [bd]
-      INCLUDE >> ENSURE BRIDGE DOMAINS HAVE SUBNETS	TAGS: [bd]
-      INCLUDE >> ENSURE TENANT FILTERS EXIST	TAGS: [contract, filter]
-      INCLUDE >> ENSURE FILTERS HAVE ENTRIES	TAGS: [contract, filter]
-      INCLUDE >> ENSURE TENANT CONTRACTS EXIST	TAGS: [contract]
-      INCLUDE >> ENSURE CONTRACTS HAVE CONTRACT SUBJECTS	TAGS: [contract]
-      INCLUDE >> ENSURE CONTRACT SUBJECTS HAVE FILTERS	TAGS: [contract]
-      INCLUDE >> ENSURE APPLICATION EXISTS	TAGS: [app, epg]
-      INCLUDE >> ENSURE APPLICATION EPGS EXISTS	TAGS: [epg]
-      INCLUDE >> ENSURE DOMAIN IS BOUND TO EPG	TAGS: [epg]
-      INCLUDE >> ENSURE EPGS HAVE CONTRACTS	TAGS: [epg]
+      CHECK >> Error checking and log setup	TAGS: [apic]
+      TASK >> ENSURE APPLICATIONS TENANT EXISTS	TAGS: [app, bd, contract, epg, filter, tenant, vrf]
+      TASK >> ENSURE TENANT VRF EXISTS	TAGS: [bd, vrf]
+      TASK >> ENSURE TENANT BRIDGE DOMAINS EXISTS	TAGS: [bd]
+      TASK >> ENSURE BRIDGE DOMAINS HAVE SUBNETS	TAGS: [bd]
+      TASK >> ENSURE TENANT FILTERS EXIST	TAGS: [contract, filter]
+      TASK >> ENSURE FILTERS HAVE ENTRIES	TAGS: [contract, filter]
+      TASK >> ENSURE TENANT CONTRACTS EXIST	TAGS: [contract]
+      TASK >> ENSURE CONTRACTS HAVE CONTRACT SUBJECTS	TAGS: [contract]
+      TASK >> ENSURE CONTRACT SUBJECTS HAVE FILTERS	TAGS: [contract]
+      TASK >> ENSURE APPLICATION EXISTS	TAGS: [app, epg]
+      TASK >> ENSURE APPLICATION EPGS EXISTS	TAGS: [epg]
+      TASK >> ENSURE DOMAIN IS BOUND TO EPG	TAGS: [epg]
+      TASK >> ENSURE EPGS HAVE CONTRACTS	TAGS: [epg]
 ```
 
 For whole playbook execution use:

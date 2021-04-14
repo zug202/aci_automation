@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE TENANT BRIDGE DOMAIN EXISTS
+- name: Adding subnet for bd
   cisco.aci.aci_bd_subnet:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

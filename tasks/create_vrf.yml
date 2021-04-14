@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE TENANT VRF EXISTS
+- name: Creating VRF
   cisco.aci.aci_vrf:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

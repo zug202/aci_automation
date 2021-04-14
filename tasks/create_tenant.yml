@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE APPLICATIONS TENANT EXISTS
+- name: Creating Tenant
   cisco.aci.aci_tenant:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

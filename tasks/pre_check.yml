@@ -1,12 +1,12 @@
 ---
-- name: "Pre-check"
+- name: "CHECK >> Pre-check"
   block:
     # Check if every device has defined necessary vars
     # A variable is defined, not empty or not false.
     # In Python, for sequences, (strings, lists, tuples), use 
     # the fact that empty sequences are false. 
     # https://docs.python.org/2/library/stdtypes.html
-    - name: "Perform basic error checking on core variables"
+    - name: "CHECK >> Perform basic error checking on core variables"
       assert:
         that:
 #          - "ansible_network_os is defined and ansible_network_os"
@@ -16,7 +16,7 @@
         fail_msg: "Basic variables are defined incorrectly"
         success_msg: "Basic variables are defined correctly"
     # Check controller status
-    - name: "Store info about controller ready status"
+    - name: "CHECK >> Store info about controller ready status"
       cisco.aci.aci_rest:
         host: "{{ ansible_host }}"
         username: "{{ ansible_user }}"
@@ -29,7 +29,7 @@
       #retries: 20
       #delay: 30
 
-    - name: "Perform controller [ready] status check"  
+    - name: "CHECK >> Perform controller [ready] status check"  
       assert:
         that:
           - "topsystem is success and topsystem.totalCount|int >= groups['apic']|count >= 3"
@@ -38,7 +38,7 @@
       ignore_errors: yes
     
     # Check controller cluster status
-    - name: "Store info about controller fully-fit status"
+    - name: "CHECK >> Store info about controller fully-fit status"
       cisco.aci.aci_rest:
         host: "{{ ansible_host }}"
         username: "{{ ansible_user }}"
@@ -56,7 +56,7 @@
       #retries: 30
       #delay: 30
     
-    - name: "Perform controller [fully-fit] status check"  
+    - name: "CHECK >> Perform controller [fully-fit] status check"  
       assert:
         that: 
           - infrawinode is success and infrawinode.totalCount|int >= groups['apic']|count >= 3 
@@ -70,7 +70,7 @@
 
     # Capture the current timestamp for timestamping the data written
     # to files later in the playbook. 
-    - name: "Store timestamp as fact"
+    - name: "CHECK >> Store timestamp as fact"
       set_fact:
         TIMESTAMP: "{{ lookup('pipe','date +%Y-%m-%dT%H-%M-%S') }}"
         cacheable: yes

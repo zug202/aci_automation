@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE APPLICATION EPGS EXISTS
+- name: Creating epg
   cisco.aci.aci_epg:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

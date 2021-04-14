@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE TENANT FILTERS EXIST
+- name: Creating filter
   cisco.aci.aci_filter:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"

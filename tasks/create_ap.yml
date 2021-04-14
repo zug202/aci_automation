@@ -1,6 +1,6 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
-- name: ENSURE APPLICATION EXISTS
+- name: Creating ap
   cisco.aci.aci_ap:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"
