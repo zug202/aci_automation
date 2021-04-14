@@ -1,0 +1,80 @@
+---
+- name: "Pre-check"
+  block:
+    # Check if every device has defined necessary vars
+    # A variable is defined, not empty or not false.
+    # In Python, for sequences, (strings, lists, tuples), use 
+    # the fact that empty sequences are false. 
+    # https://docs.python.org/2/library/stdtypes.html
+    - name: "Perform basic error checking on core variables"
+      assert:
+        that:
+#          - "ansible_network_os is defined and ansible_network_os"
+          - "ansible_connection in ['network_cli', 'local']"
+          - "ansible_user is defined and ansible_user"
+          - "ansible_password is defined and ansible_password"
+        fail_msg: "Basic variables are defined incorrectly"
+        success_msg: "Basic variables are defined correctly"
+    # Check controller status
+    - name: "Store info about controller ready status"
+      aci_rest:
+        host: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: False
+        method: get
+        path: /api/node/class/topSystem.json?query-target-filter=eq(topSystem.role,"controller")
+      register: topsystem
+      #until: topsystem|success and topsystem.totalCount|int >= groups['apic']|count >= 3
+      #retries: 20
+      #delay: 30
+
+    - name: "Perform controller [ready] status check"  
+      assert:
+        that:
+          - "topsystem is success and topsystem.totalCount|int >= groups['apic']|count >= 3"
+        fail_msg: "Not all controllers are ready"
+        success_msg:  "All controllers are ready"
+      ignore_errors: yes
+    
+    # Check controller cluster status
+    - name: "Store info about controller fully-fit status"
+      aci_rest:
+        host: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: False
+        method: get
+        path: /api/node/class/infraWiNode.json?query-target-filter=wcard(infraWiNode.dn,"topology/pod-1/node-1/av")
+      register: infrawinode
+      #until: >
+      #  infrawinode|success and
+      #  infrawinode.totalCount|int >= groups['apic']|count >= 3 and
+      #  infrawinode.imdata[0].infraWiNode.attributes.health == 'fully-fit' and
+      #  infrawinode.imdata[1].infraWiNode.attributes.health == 'fully-fit' and
+      #  infrawinode.imdata[2].infraWiNode.attributes.health == 'fully-fit'
+      #retries: 30
+      #delay: 30
+    
+    - name: "Perform controller [fully-fit] status check"  
+      assert:
+        that: 
+          - infrawinode is success and infrawinode.totalCount|int >= groups['apic']|count >= 3 
+          - infrawinode.imdata[0].infraWiNode.attributes.health == 'fully-fit' 
+          - infrawinode.imdata[1].infraWiNode.attributes.health == 'fully-fit'
+          - infrawinode.imdata[2].infraWiNode.attributes.health == 'fully-fit'
+        fail_msg: "Not all controllers are fully-fit"
+        success_msg:  "All controllers are fully-fit"
+      ignore_errors: yes
+
+
+    # Capture the current timestamp for timestamping the data written
+    # to files later in the playbook. 
+    - name: "Store timestamp as fact"
+      set_fact:
+        TIMESTAMP: "{{ lookup('pipe','date +%Y-%m-%dT%H-%M-%S') }}"
+        cacheable: yes
+
+      run_once: true
+
+  delegate_to: localhost

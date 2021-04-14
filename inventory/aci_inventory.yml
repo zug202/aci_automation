@@ -1,0 +1,8 @@
+all:
+  children:
+    devnet_sandbox:
+      children:
+        apic:
+          hosts:
+            devnet-apic:
+              ansible_host: sandboxapicdc.cisco.com

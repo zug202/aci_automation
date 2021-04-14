@@ -1,0 +1,13 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE TENANT VRF EXISTS
+  aci_vrf:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    vrf: "{{ vrf }}"
+    description: "VRF Created Using Ansible"
+  tags: vrf, bd

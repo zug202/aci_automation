@@ -1,0 +1,13 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE APPLICATION EXISTS
+  aci_ap:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    ap: "{{ ap }}"
+    descr: "App Profile Created Using Ansible"
+  tags: app, epg

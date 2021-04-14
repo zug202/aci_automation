@@ -1,0 +1,19 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE DOMAIN IS BOUND TO EPG
+  aci_epg_to_domain:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    ap: "{{ ap }}"
+    epg: "{{ item.epg }}"
+    domain: "{{ item.domain }}"
+    domain_type: "{{ item.domain_type }}"
+    vm_provider: "{{ item.vm_provider }}"
+    encap_mode: "{{ item.encap_mode }}"
+    encap: "{{ item.encap }}"
+  with_items: "{{ epgs }}"
+  tags: epg

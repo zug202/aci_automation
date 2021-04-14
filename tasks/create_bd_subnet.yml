@@ -1,0 +1,16 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE TENANT BRIDGE DOMAIN EXISTS
+  aci_bd_subnet:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    bd: "{{ item.bd }}"
+    gateway: "{{ item.gateway }}"
+    mask: "{{ item.mask }}"
+    scope: "{{ item.scope }}"
+    description: "Subnet Created Using Ansible"
+  with_items: "{{ bridge_domains }}"

@@ -1,0 +1,14 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE CONTRACTS HAVE CONTRACT SUBJECTS
+  aci_contract_subject:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    contract: "{{ item.contract }}"
+    subject: "{{ item.subject }}"
+  with_items: "{{ contracts }}"
+  tags: contract

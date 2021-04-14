@@ -1,0 +1,17 @@
+---
+- name: USE ACI REST MODULE
+  hosts: apic
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: ENSURE TENANT IS CLEANED UP
+      aci_rest:
+        host: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        method: "delete"
+        validate_certs: False
+        path: "api/mo/uni/tn-CHANGEME.json"
+
+

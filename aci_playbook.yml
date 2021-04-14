@@ -1,0 +1,61 @@
+---
+- name: ENSURE APPLICATION CONFIGURATION EXISTS
+  hosts: apic
+  connection: local
+  gather_facts: False
+      
+  tasks:
+    - name: "INCLUDE >> Error checking and log setup"
+      include_tasks: "tasks/pre_check.yml"
+
+    - name: "INCLUDE >> ENSURE APPLICATIONS TENANT EXISTS"
+      include_tasks: "tasks/create_tenant.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE TENANT VRF EXISTS"
+      include_tasks: "tasks/create_vrf.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE TENANT BRIDGE DOMAINS EXISTS"
+      include_tasks: "tasks/create_bd.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE BRIDGE DOMAINS HAVE SUBNETS"
+      include_tasks: "tasks/create_bd_subnet.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE TENANT FILTERS EXIST"
+      include_tasks: "tasks/create_filter.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE FILTERS HAVE ENTRIES"
+      include_tasks: "tasks/create_filter_entries.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE TENANT CONTRACTS EXIST"
+      include_tasks: "tasks/create_contract.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE CONTRACTS HAVE CONTRACT SUBJECTS"
+      include_tasks: "tasks/create_contract_subject.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE CONTRACT SUBJECTS HAVE FILTERS"
+      include_tasks: "tasks/create_contract_subject&filter_association.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE APPLICATION EXISTS"
+      include_tasks: "tasks/create_ap.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE APPLICATION EPGS EXISTS"
+      include_tasks: "tasks/create_ap_epg.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE DOMAIN IS BOUND TO EPG"
+      include_tasks: "tasks/create_epg_domain_association.yml"
+      ignore_errors: yes
+
+    - name: "INCLUDE >> ENSURE EPGS HAVE CONTRACTS"
+      include_tasks: "tasks/create_epg_contract_association.yml"
+      ignore_errors: yes

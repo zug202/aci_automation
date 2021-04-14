@@ -1,0 +1,14 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE TENANT FILTERS EXIST
+  aci_filter:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    filter: "{{ item.filter }}"
+    descr: "Filter Created Using Ansible"
+  with_items:  "{{ filters }}"
+  tags: filter, contract

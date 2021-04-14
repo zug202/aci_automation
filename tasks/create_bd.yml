@@ -1,0 +1,15 @@
+---
+# Log in and run the commands specified in the group_vars/ files.
+- name: ENSURE TENANT BRIDGE DOMAIN EXISTS
+  aci_bd:
+    host: "{{ ansible_host }}"
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    state: "present"
+    validate_certs: False
+    tenant: "{{ tenant }}"
+    bd: "{{ item.bd }}"
+    vrf: "{{ vrf }}"
+    description: "BD Created Using Ansible"
+  with_items: "{{ bridge_domains }}"
+  tags: bd
