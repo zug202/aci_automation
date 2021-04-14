@@ -1,7 +1,7 @@
 ---
 # Log in and run the commands specified in the group_vars/ files.
 - name: ENSURE DOMAIN IS BOUND TO EPG
-  aci_epg_to_domain:
+  cisco.aci.aci_epg_to_domain:
     host: "{{ ansible_host }}"
     username: "{{ ansible_user }}"
     password: "{{ ansible_password }}"

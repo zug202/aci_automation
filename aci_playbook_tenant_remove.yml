@@ -6,7 +6,7 @@
 
   tasks:
     - name: ENSURE TENANT IS CLEANED UP
-      aci_rest:
+      cisco.aci.aci_rest:
         host: "{{ ansible_host }}"
         username: "{{ ansible_user }}"
         password: "{{ ansible_password }}"

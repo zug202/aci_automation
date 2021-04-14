@@ -17,7 +17,7 @@
         success_msg: "Basic variables are defined correctly"
     # Check controller status
     - name: "Store info about controller ready status"
-      aci_rest:
+      cisco.aci.aci_rest:
         host: "{{ ansible_host }}"
         username: "{{ ansible_user }}"
         password: "{{ ansible_password }}"
@@ -39,7 +39,7 @@
     
     # Check controller cluster status
     - name: "Store info about controller fully-fit status"
-      aci_rest:
+      cisco.aci.aci_rest:
         host: "{{ ansible_host }}"
         username: "{{ ansible_user }}"
         password: "{{ ansible_password }}"
