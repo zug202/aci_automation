@@ -1,25 +1,26 @@
-# ans-collect-output
-This module collects various outputs and puts them into respective files.
+# ans-aci
+This module for configuration ACI fabric via Ansible.
 
-Since most of the devices supported by BSC are Nexus, examples are based on NXOS.
 
 ## Structure
 
-### tasks folder
-This folder is unlikely to be changed. It has all necessary files for this modules to work.
+### group_vars folder
+This folder contains group_vars yml file
 
-### templates folder
-This folder has only one Jinja template that provides a structure for the output file.
+### tasks folder
+This folder contains tasks per ACI object.
+
+### inventory folder
+This folder contains inventory file.
+The inventory folder is set as ansible.cfg parameter.
 
 ## Usage
-In order to collect any outputs, the following parameters must be specified:
- - inventory file
+In order to start playbook, the following parameters must be specified:
  - file with configuration data (aci_env_var_config)
-
-The inventory folder is set as ansible.cfg parameter.
 
 Configuration data are specified with as extra vars - ```-e``` option. This repo has an example of such file with all necessary variables mentions.
 
+```python
 ansible-playbook aci_playbook.yml --list-tasks
 
 playbook: aci_playbook.yml
@@ -40,9 +41,10 @@ playbook: aci_playbook.yml
       INCLUDE >> ENSURE APPLICATION EPGS EXISTS	TAGS: [epg]
       INCLUDE >> ENSURE DOMAIN IS BOUND TO EPG	TAGS: [epg]
       INCLUDE >> ENSURE EPGS HAVE CONTRACTS	TAGS: [epg]
+```
 
 For whole playbook execution use:
-ansible-playbook aci_playbook.yml -e @aci_env_var_config.yml
+```ansible-playbook aci_playbook.yml -e @aci_env_var_config.yml```
 
 For partial playbook execution use:
-ansible-playbook aci_playbook.yml -e @aci_env_var_config.yml --tags bd
+```ansible-playbook aci_playbook.yml -e @aci_env_var_config.yml --tags bd```
